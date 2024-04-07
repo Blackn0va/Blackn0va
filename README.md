@@ -6,3 +6,4 @@
 - ⚡ Fun fact: I love solving coding puzzles in my free time.
 
 - 🌐 Check out my GitHub profile: [![GitHub](https://img.shields.io/badge/GitHub-black?style=flat&logo=github)](https://github.com/blackn0va)
+- 📫 You can reach me at [blacknovaa@gmail.com](mailto:email@example.com).
