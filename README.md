@@ -13,6 +13,6 @@ I'm a passionate software developer who enjoys contributing to open-source proje
 - **[RICOH_userlist_csv_ActiveDirectory](https://github.com/blackn0va/RICOH_userlist_csv_ActiveDirectory)**: A RICOH printer user .CSV list generator from ActiveDirectory. (C#)
 - **[Uebergabeprotokoll](https://github.com/blackn0va/Uebergabeprotokoll)**: A tool for creating a handover protocol. A PDF is generated, which the recipient signs. With SQLIte database. (C#)
 
-⚡ Fun fact: I love solving coding puzzles in my free time.
+⚡ Fun fact: I love solving coding puzzles in my free time. 
 
 📫 You can reach me at [blacknovaa@gmail.com](mailto:blacknovaa@gmail.com).
