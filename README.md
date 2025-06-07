@@ -31,6 +31,7 @@ Du willst deine Community mit Giveaways überraschen, Statistiken live einblende
 - **Streamingbots & Community-Tools**
 - **Statistik- & Raffle-Bots**
 - **Automatisierung für Streamer**
+- **Alle Bots sind bequem und sicher via Discord administrierbar**
 - **Java, C#, PowerShell, Git, SQLite**
 
 ---
