@@ -1,59 +1,56 @@
-### Hi there 👋
+# 🎮✨ Willkommen, Streamer & Bot-Fans! ✨🎮
 
-I'm a passionate software developer who enjoys contributing to open-source projects and constantly working on improving my coding skills.
+Hey, ich bin Blackn0va – **dein Entwickler für powervolle Tools, die Streaming auf das nächste Level bringen!**  
+Ob Chatbots, Statistik-Tools, Raffle-Bots oder clevere Automatisierungen: Ich baue digitale Sidekicks, die dir den Rücken freihalten, deine Community begeistern und deinen Stream einzigartig machen.
 
-🌐 Check out my GitHub projects:
+---
 
-- **[Discord_Bot](https://github.com/blackn0va/Discord_Bot)**: Discord bot with OpenAI chat, commands, role acceptance/giving, RSS patch notes for Star Citizen and Palworld. (Java)
-- **[Flipper_BadUSB_Wrapper](https://github.com/blackn0va/Flipper_BadUSB_Wrapper)**: A wrapper for a PowerShell script from Kali Linux for Flipper Zero BadUSB. (C#)
-- **[ts3bot](https://github.com/blackn0va/ts3bot)**: A Teamspeak 3 bot with OpenAI chat, commands, and role acceptance/giving. (Java)
-- **[RICOH_userlist_csv_ActiveDirectory](https://github.com/blackn0va/RICOH_userlist_csv_ActiveDirectory)**: A RICOH printer user .CSV list generator from ActiveDirectory. (C#)
-- **[Uebergabeprotokoll](https://github.com/blackn0va/Uebergabeprotokoll)**: A tool for creating a handover protocol. A PDF is generated, which the recipient signs. With SQLIte database. (C#)
+## 🚀 Meine Mission
 
-📫 You can reach me at [blacknovaa@gmail.com](mailto:blacknovaa@gmail.com).
-You can view the file here.
+**Streaming soll Spaß machen – nicht stressen!**  
+Deshalb entwickle ich smarte Bots und Tools, die dir Arbeit abnehmen, für Interaktion sorgen und dir neue Möglichkeiten eröffnen.  
+Du willst deine Community mit Giveaways überraschen, Statistiken live einblenden oder deinen Chat automatisieren?  
+**Let’s do it!**
 
-mach die readme schöner
-To enhance the appearance of your README.md file, we can add some formatting elements such as headings, badges, tables, and more descriptive sections. Here's an improved version of your README.md:
+---
 
-Markdown
-# Welcome to My GitHub Profile! 👋
+## 🛠️ Projekte, die rocken
 
-I am a passionate software developer who enjoys contributing to open-source projects and constantly working on improving my coding skills.
+| 🚩 Projekt | 💡 Was es kann | 🖥️ Sprache |
+| ---------- | -------------- | ---------- |
+| [Discord_Bot](https://github.com/blackn0va/Discord_Bot) | Chatbot mit OpenAI, Commands, Rollen, Patchnotes-Feeds für Star Citizen & Palworld | Java |
+| [Flipper_BadUSB_Wrapper](https://github.com/blackn0va/Flipper_BadUSB_Wrapper) | PowerShell-Wrapper für Flipper Zero BadUSB – Hack the planet! | C# |
+| [ts3bot](https://github.com/blackn0va/ts3bot) | Teamspeak 3 Bot mit OpenAI-Chat, Commands & Rollenverwaltung | Java |
+| [RICOH_userlist_csv_ActiveDirectory](https://github.com/blackn0va/RICOH_userlist_csv_ActiveDirectory) | Automatischer CSV-Generator für RICOH-Drucker aus dem AD | C# |
+| [Uebergabeprotokoll](https://github.com/blackn0va/Uebergabeprotokoll) | Digitales Übergabeprotokoll mit PDF-Export & SQLite | C# |
 
-## 🌐 My Projects
+---
 
-Here are some of my projects that you might find interesting:
+## 🌟 Was ich kann
 
-| Project | Description | Language |
-| ------- | ----------- | -------- |
-| [Discord_Bot](https://github.com/blackn0va/Discord_Bot) | Discord bot with OpenAI chat, commands, role acceptance/giving, RSS patch notes for Star Citizen and Palworld. | Java |
-| [Flipper_BadUSB_Wrapper](https://github.com/blackn0va/Flipper_BadUSB_Wrapper) | A wrapper for a PowerShell script from Kali Linux for Flipper Zero BadUSB. | C# |
-| [ts3bot](https://github.com/blackn0va/ts3bot) | A Teamspeak 3 bot with OpenAI chat, commands, and role acceptance/giving. | Java |
-| [RICOH_userlist_csv_ActiveDirectory](https://github.com/blackn0va/RICOH_userlist_csv_ActiveDirectory) | A RICOH printer user .CSV list generator from ActiveDirectory. | C# |
-| [Uebergabeprotokoll](https://github.com/blackn0va/Uebergabeprotokoll) | A tool for creating a handover protocol. A PDF is generated, which the recipient signs. With SQLite database. | C# |
+- **Streamingbots & Community-Tools**
+- **Statistik- & Raffle-Bots**
+- **Automatisierung für Streamer**
+- **Java, C#, PowerShell, Git, SQLite**
 
-## 📫 Contact Me
-
-Feel free to reach out to me at [blacknovaa@gmail.com](mailto:blacknovaa@gmail.com) for any inquiries or collaborations.
-
-## 🛠️ Skills & Tools
-
-- **Languages**: Java, C#, PowerShell
-- **Tools**: Git, GitHub, SQLite
+---
 
 ## 📈 GitHub Stats
 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Blackn0va&show_icons=true&hide=contribs,issues)
-
-## 🌟 Highlights
-
 ![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Blackn0va&layout=compact)
-
-## 🤝 Contributions
-
-I am always open to contributing to interesting and impactful projects. Let's build something amazing together!
 
 ---
 
-Thank you for visiting my GitHub profile. Have a great day! 😊
+## 🤝 Lass uns connecten!
+
+Du hast eine verrückte Idee für deinen Stream?  
+Du brauchst einen Bot, den es noch nicht gibt?  
+**Schreib mir:** [blacknovaa@gmail.com](mailto:blacknovaa@gmail.com)
+
+---
+
+> **Level up your stream – mit den richtigen Tools!**  
+> _Let’s code something legendary!_
+
+---
