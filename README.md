@@ -37,7 +37,7 @@ Du willst deine Community mit Giveaways überraschen, Statistiken live einblende
 
 ## 📈 GitHub Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Blackn0va&show_icons=true&hide=contribs,issues)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Blackn0va&show_icons=true&hide=issues)
 ![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Blackn0va&layout=compact)
 
 ---
