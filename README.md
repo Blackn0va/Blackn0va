@@ -14,15 +14,17 @@ Du willst deine Community mit Giveaways überraschen, Statistiken live einblende
 
 ---
 
-## 🛠️ Projekte, die rocken
+## 🛠️ PowerUp Your Stream – Die wichtigsten Projekte
 
-| 🚩 Projekt | 💡 Was es kann | 🖥️ Sprache |
-| ---------- | -------------- | ---------- |
-| [Discord_Bot](https://github.com/blackn0va/Discord_Bot) | Chatbot mit OpenAI, Commands, Rollen, Patchnotes-Feeds für Star Citizen & Palworld | Java |
-| [Flipper_BadUSB_Wrapper](https://github.com/blackn0va/Flipper_BadUSB_Wrapper) | PowerShell-Wrapper für Flipper Zero BadUSB – Hack the planet! | C# |
-| [ts3bot](https://github.com/blackn0va/ts3bot) | Teamspeak 3 Bot mit OpenAI-Chat, Commands & Rollenverwaltung | Java |
-| [RICOH_userlist_csv_ActiveDirectory](https://github.com/blackn0va/RICOH_userlist_csv_ActiveDirectory) | Automatischer CSV-Generator für RICOH-Drucker aus dem AD | C# |
-| [Uebergabeprotokoll](https://github.com/blackn0va/Uebergabeprotokoll) | Digitales Übergabeprotokoll mit PDF-Export & SQLite | C# |
+| 🚩 Projekt         | 💡 Was es kann                                                                 | 🖥️ Sprache |
+|--------------------|-------------------------------------------------------------------------------|------------|
+| **streamstatsjava**  | Präzises Watchtime- & Chat-Tracking, Bit- und Sub-Statistiken, Discord-Integration, Monats-Reset, Gewinnspiel-Auslosung | Java       |
+| **rafflebotjava**    | Automatisierte Verlosungen, Pity-System, Discord-Preisverwaltung, Teilnehmerlisten, Whisper-Integration | Java       |
+| **obsbotjava**       | 24/7 OBS-Steuerung, Discord-Admin, Titel- und Szenenwechsel, Video-Playlisten, Voteskip | Java       |
+| **tokentool**        | Verwaltung & Generierung von Twitch/Discord OAuth-Tokens, Scope-Management, Token-Validierung | Java       |
+| **creator**          | Playlist- und Medienverwaltung für den Stream, automatisierte Ordnerstruktur | Java       |
+| **startStream**      | Automatisiertes Starten & Verwalten von Streams via OBS-API                  | Java       |
+| **updater**          | Automatische Updates & Wartung für alle Bots                                 | Java       |
 
 ---
 
