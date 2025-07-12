@@ -38,9 +38,8 @@ Du willst deine Community mit Giveaways überraschen, Statistiken live einblende
 
 ## 📈 GitHub Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Blackn0va&show_icons=true&hide=issues)<br/>
-[![Blackn0va's github streak](https://github-readme-streak-stats.herokuapp.com/?user=Blackn0va&theme=blue-green)](https://github.com/Blackn0va/) <br/>
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Blackn0va&layout=compact)<br/>
+![GitHub Stats](https://github.com/user-attachments/assets/55400644-3a77-4499-8569-dbe169daee9a)<br/>
+![Top Languages](https://github.com/user-attachments/assets/7845022b-de8c-4551-b365-a9f689473181)<br/>
 
 ---
 
