@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240" role="img" aria-labelledby="t d">
   <title id="t">GitHub in Zahlen</title>
-  <desc id="d">GitHub in Zahlen: 2.121 Commits, davon 1.606 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.</desc>
+  <desc id="d">GitHub in Zahlen: 2.124 Commits, davon 1.609 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.</desc>
   <style>
     text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
     .h { font-size: 15px; font-weight: 600; fill: #f0f6fc; }
@@ -14,24 +14,24 @@
   <text x="20" y="32" class="h">GitHub in Zahlen</text>
   <text x="20" y="51" class="sub">öffentliche und private Repositories · Stand 14.11.2026</text>
 
-  <text x="18" y="112" class="hero">2.121</text>
+  <text x="18" y="112" class="hero">2.124</text>
   <text x="20" y="134" class="lab">Commits gesamt</text>
   <g>
     <path d="M240,126 V126 Q240,124 242,124 H252 Q254,124 254,126 V126 Z" fill="#4a525c"><title>2019: 34 Commits</title></path>
     <path d="M258,126 V126 Q258,124 260,124 H270 Q272,124 272,126 V126 Z" fill="#4a525c"><title>2020: 1 Commits</title></path>
     <path d="M276,126 V126 Q276,124 278,124 H288 Q290,124 290,126 V126 Z" fill="#4a525c"><title>2021: 2 Commits</title></path>
     <path d="M294,126 V126 Q294,124 296,124 H306 Q308,124 308,126 V126 Z" fill="#4a525c"><title>2022: 5 Commits</title></path>
-    <path d="M312,126 V126 Q312,122.23 315.77,122.23 H322.23 Q326,122.23 326,126 V126 Z" fill="#4a525c"><title>2023: 108 Commits</title></path>
-    <path d="M330,126 V124.11 Q330,120.11 334,120.11 H340 Q344,120.11 344,124.11 V126 Z" fill="#4a525c"><title>2024: 169 Commits</title></path>
-    <path d="M348,126 V123.17 Q348,119.17 352,119.17 H358 Q362,119.17 362,123.17 V126 Z" fill="#4a525c"><title>2025: 196 Commits</title></path>
-    <path d="M366,126 V74 Q366,70 370,70 H376 Q380,70 380,74 V126 Z" fill="#a78bfa"><title>2026: 1.606 Commits</title></path>
+    <path d="M312,126 V126 Q312,122.24 315.76,122.24 H322.24 Q326,122.24 326,126 V126 Z" fill="#4a525c"><title>2023: 108 Commits</title></path>
+    <path d="M330,126 V124.12 Q330,120.12 334,120.12 H340 Q344,120.12 344,124.12 V126 Z" fill="#4a525c"><title>2024: 169 Commits</title></path>
+    <path d="M348,126 V123.18 Q348,119.18 352,119.18 H358 Q362,119.18 362,123.18 V126 Z" fill="#4a525c"><title>2025: 196 Commits</title></path>
+    <path d="M366,126 V74 Q366,70 370,70 H376 Q380,70 380,74 V126 Z" fill="#a78bfa"><title>2026: 1.609 Commits</title></path>
   </g>
   <line x1="240" y1="126.5" x2="380" y2="126.5" stroke="#30363d"/>
   <text x="240" y="142" class="note">2019</text>
   <text x="380" y="142" class="note" text-anchor="end">2026</text>
 
   <line x1="20" y1="160.5" x2="380" y2="160.5" stroke="#30363d"/>
-  <text x="20" y="192" class="val">1.606</text>
+  <text x="20" y="192" class="val">1.609</text>
   <text x="20" y="212" class="lab">Commits 2026</text>
   <text x="145" y="192" class="val">23</text>
   <text x="145" y="212" class="lab">Projekte</text>
