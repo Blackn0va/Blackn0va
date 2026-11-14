@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="830" height="200" viewBox="0 0 830 200" role="img" aria-labelledby="t d">
+  <title id="t">Hi, ich bin Blackn0va</title>
+  <desc id="d">StreamWizard · Streaming-Automatisierung. Werkzeuge, die Streams rund um die Uhr laufen lassen. C++20, Java 21, PHP 8.5, Qt 6, OBS Studio.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#140829"/>
+      <stop offset="0.55" stop-color="#34167a"/>
+      <stop offset="1" stop-color="#6d28d9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.84" cy="0.42" r="0.42">
+      <stop offset="0" stop-color="#c4b5fd" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#c4b5fd" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+    <clipPath id="card">
+      <rect width="830" height="200" rx="16"/>
+    </clipPath>
+    <path id="spark" d="M0,-10 C1.4,-1.4 1.4,-1.4 10,0 C1.4,1.4 1.4,1.4 0,10 C-1.4,1.4 -1.4,1.4 -10,0 C-1.4,-1.4 -1.4,-1.4 0,-10 Z" fill="#ede9fe"/>
+  </defs>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
+    .over { font-size: 12px; font-weight: 600; letter-spacing: 2.4px; fill: #c4b5fd; }
+    .name { font-size: 40px; font-weight: 700; letter-spacing: -0.5px; fill: #ffffff; }
+    .claim { font-size: 16px; fill: #e4dcff; }
+    .chip { font-size: 12px; font-weight: 600; fill: #f5f3ff; }
+    .live { font-size: 10px; font-weight: 700; letter-spacing: 0.6px; fill: #ffffff; }
+    .tw { animation: tw 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .d1 { animation-delay: -1.2s; }
+    .d2 { animation-delay: -2.4s; }
+    .pulse { animation: pulse 2s ease-in-out infinite; }
+    .progress { animation: progress 9s linear infinite; transform-box: fill-box; transform-origin: left center; }
+    @keyframes tw { 0%, 100% { opacity: 0.25; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+    @keyframes progress { from { transform: scaleX(0.08); } to { transform: scaleX(1); } }
+    @media (prefers-reduced-motion: reduce) {
+      .tw, .pulse, .progress { animation: none; }
+      .tw { opacity: 0.7; }
+      .progress { transform: scaleX(0.62); }
+    }
+  </style>
+
+  <g clip-path="url(#card)">
+    <rect width="830" height="200" fill="url(#bg)"/>
+    <rect width="830" height="200" fill="url(#dots)"/>
+    <rect width="830" height="200" fill="url(#glow)"/>
+  </g>
+  <rect x="0.5" y="0.5" width="829" height="199" rx="15.5" fill="none" stroke="#ffffff" stroke-opacity="0.12"/>
+
+  <text x="48" y="58" class="over">STREAMWIZARD · STREAMING-AUTOMATISIERUNG</text>
+  <text x="46" y="106" class="name">Hi, ich bin Blackn0va</text>
+  <text x="48" y="136" class="claim">Werkzeuge, die Streams rund um die Uhr laufen lassen.</text>
+
+  <g>
+    <rect x="48" y="156" width="60" height="24" rx="12" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.22"/>
+    <text x="78" y="172" class="chip" text-anchor="middle">C++20</text>
+    <rect x="116" y="156" width="74" height="24" rx="12" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.22"/>
+    <text x="153" y="172" class="chip" text-anchor="middle">Java 21</text>
+    <rect x="198" y="156" width="74" height="24" rx="12" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.22"/>
+    <text x="235" y="172" class="chip" text-anchor="middle">PHP 8.5</text>
+    <rect x="280" y="156" width="54" height="24" rx="12" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.22"/>
+    <text x="307" y="172" class="chip" text-anchor="middle">Qt 6</text>
+    <rect x="342" y="156" width="96" height="24" rx="12" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.22"/>
+    <text x="390" y="172" class="chip" text-anchor="middle">OBS Studio</text>
+  </g>
+
+  <!-- Rechts: ein stilisiertes Streamfenster, das nie Feierabend macht. -->
+  <g>
+    <rect x="606" y="42" width="184" height="116" rx="12" fill="#ffffff" fill-opacity="0.07" stroke="#ffffff" stroke-opacity="0.2"/>
+    <circle cx="623" cy="59" r="3.5" fill="#ffffff" fill-opacity="0.35"/>
+    <circle cx="635" cy="59" r="3.5" fill="#ffffff" fill-opacity="0.35"/>
+    <circle cx="647" cy="59" r="3.5" fill="#ffffff" fill-opacity="0.35"/>
+    <rect x="706" y="50" width="74" height="18" rx="9" fill="#e5484d"/>
+    <circle cx="717" cy="59" r="3" fill="#ffffff" class="pulse"/>
+    <text x="725" y="62.5" class="live">LIVE 24/7</text>
+    <circle cx="698" cy="102" r="24" fill="#ffffff" fill-opacity="0.12"/>
+    <path d="M690,89 L713,102 L690,115 Z" fill="#ffffff" fill-opacity="0.92"/>
+    <rect x="622" y="138" width="152" height="4" rx="2" fill="#ffffff" fill-opacity="0.18"/>
+    <rect x="622" y="138" width="152" height="4" rx="2" fill="#c4b5fd" class="progress"/>
+  </g>
+
+  <g transform="translate(586 40)"><use href="#spark" class="tw"/></g>
+  <g transform="translate(806 32) scale(0.6)"><use href="#spark" class="tw d1"/></g>
+  <g transform="translate(584 166) scale(0.5)"><use href="#spark" class="tw d2"/></g>
+  <g transform="translate(812 176) scale(0.8)"><use href="#spark" class="tw"/></g>
+  <g transform="translate(540 30) scale(0.4)"><use href="#spark" class="tw d1"/></g>
+</svg>
