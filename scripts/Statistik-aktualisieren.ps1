@@ -106,8 +106,9 @@ $languageSlots = [ordered]@{
 }
 
 # Farben je Darstellung. Die Sprachfarben sind die acht Kategorie-Plätze der dataviz-Referenzpalette,
-# für die hellen und die dunklen Kartenflächen getrennt gestuft (validate_palette.js, siehe README
-# im Ordner scripts). Akzent ist das StreamWizard-Violett, je Fläche eine Stufe heller oder dunkler.
+# für die hellen und die dunklen Kartenflächen getrennt gestuft. Gemessen am 2026-11-14 mit
+# validate_palette.js gegen #f6f8fa und #161b22: alle Pflichtprüfungen bestanden; Magenta liegt hell
+# unter 3:1 und braucht deshalb die Legende mit Namen und Anteil, die die Karte ohnehin hat.
 $themes = [ordered]@{
     dark  = @{
         Surface   = '#161b22'
@@ -115,8 +116,6 @@ $themes = [ordered]@{
         Text      = '#f0f6fc'
         Text2     = '#9198a1'
         Muted     = '#848d97'
-        Accent    = '#a78bfa'
-        Column    = '#4a525c'
         Other     = '#6e7681'
         Languages = @('#d95926', '#3987e5', '#9085e9', '#199e70', '#c98500', '#0ca30c', '#d55181', '#e66767')
     }
@@ -126,8 +125,6 @@ $themes = [ordered]@{
         Text      = '#1f2328'
         Text2     = '#59636e'
         Muted     = '#656d76'
-        Accent    = '#7c3aed'
-        Column    = '#afb8c1'
         Other     = '#8c959f'
         Languages = @('#eb6834', '#2a78d6', '#6250d6', '#1baf7a', '#eda100', '#008300', '#e87ba4', '#e34948')
     }
@@ -180,49 +177,19 @@ function Invoke-GitHubGraphQl {
     return $result['data']
 }
 
-function New-ColumnPath([double] $X, [double] $Baseline, [double] $Width, [double] $Height) {
-    # Säule mit gerundeter Oberkante und gerader Grundlinie (Mark-Spezifikation: 4px-Rundung am
-    # Datenende, verankert an der Grundlinie). Bei flachen Säulen schrumpft die Rundung mit.
-    $r = [Math]::Min(4.0, [Math]::Min($Width / 2, $Height))
-    $top = $Baseline - $Height
-    $right = $X + $Width
-    $c = { param($v) Format-Coordinate $v }
-    return "M$(& $c $X),$(& $c $Baseline) V$(& $c ($top + $r)) Q$(& $c $X),$(& $c $top) $(& $c ($X + $r)),$(& $c $top) " +
-        "H$(& $c ($right - $r)) Q$(& $c $right),$(& $c $top) $(& $c $right),$(& $c ($top + $r)) V$(& $c $Baseline) Z"
-}
-
 $svgFont = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif"
 
 function New-StatsSvg([System.Collections.IDictionary] $T, [System.Collections.IDictionary] $S, [string] $DateText) {
+    # Vorher standen rechts neben der Hauptzahl Säulen je Jahr. Neben den 1.600 Commits von 2026
+    # schrumpften alle älteren Jahre zu flachen Strichen und sahen nach Stillstand aus – auf Wunsch
+    # am 2026-11-14 entfernt. commitsByYear bleibt in stats.json, die Kachel „Commits <Jahr>“ braucht es.
     $years = @($S.commitsByYear.Keys)
-    $values = @($years | ForEach-Object { [long]$S.commitsByYear[$_] })
-    $max = [Math]::Max(1, ($values | Measure-Object -Maximum).Maximum)
-
-    # Jahressäulen rechts neben der Hauptzahl: vergangene Jahre zurückgenommen, das laufende im Akzent.
-    $chartRight = 380.0
-    $chartHeight = 56.0
-    $baseline = 126.0
-    $gap = 4.0
-    $width = [Math]::Min(14.0, (164.0 - $gap * ($years.Count - 1)) / $years.Count)
-    $chartLeft = $chartRight - ($width * $years.Count + $gap * ($years.Count - 1))
-    $columns = for ($i = 0; $i -lt $years.Count; $i++) {
-        if ($values[$i] -le 0) { continue }
-        $h = [Math]::Max(2.0, $chartHeight * $values[$i] / $max)
-        $fill = if ($i -eq $years.Count - 1) { $T.Accent } else { $T.Column }
-        $x = $chartLeft + $i * ($width + $gap)
-        "    <path d=`"$(New-ColumnPath $x $baseline $width $h)`" fill=`"$fill`"><title>$($years[$i]): $(Format-Count $values[$i]) Commits</title></path>"
-    }
-    $columnsXml = $columns -join "`n"
-
-    $commits = Format-Count $S.commits
-    $commitsYear = Format-Count $values[-1]
     $currentYear = $years[-1]
+    $commits = Format-Count $S.commits
+    $commitsYear = Format-Count ([long]$S.commitsByYear[$currentYear])
     $title = "GitHub in Zahlen: $commits Commits, davon $commitsYear im Jahr $currentYear; " +
         "$($S.projects) Projekte, davon $($S.projectsPrivate) privat; auf GitHub seit $($S.memberSince)."
     $yearsOnGitHub = [int]$currentYear - [int]$S.memberSince
-
-    $cl = Format-Coordinate $chartLeft
-    $cr = Format-Coordinate $chartRight
 
     return @"
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240" role="img" aria-labelledby="t d">
@@ -243,12 +210,6 @@ function New-StatsSvg([System.Collections.IDictionary] $T, [System.Collections.I
 
   <text x="18" y="112" class="hero">$commits</text>
   <text x="20" y="134" class="lab">Commits gesamt</text>
-  <g>
-$columnsXml
-  </g>
-  <line x1="$cl" y1="126.5" x2="$cr" y2="126.5" stroke="$($T.Border)"/>
-  <text x="$cl" y="142" class="note">$($years[0])</text>
-  <text x="$cr" y="142" class="note" text-anchor="end">$currentYear</text>
 
   <line x1="20" y1="160.5" x2="380" y2="160.5" stroke="$($T.Border)"/>
   <text x="20" y="192" class="val">$commitsYear</text>

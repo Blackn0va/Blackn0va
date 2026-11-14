@@ -18,7 +18,7 @@
 <div align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/stats-dark.svg">
-  <img src="assets/stats-light.svg" width="400" alt="GitHub in Zahlen, Stand 14.11.2026: 2.124 Commits, davon 1.609 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.">
+  <img src="assets/stats-light.svg" width="400" alt="GitHub in Zahlen, Stand 14.11.2026: 2.125 Commits, davon 1.610 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/languages-dark.svg">
