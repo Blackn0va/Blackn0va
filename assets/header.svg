@@ -58,18 +58,15 @@
     <text x="390" y="172" class="chip" text-anchor="middle">OBS Studio</text>
   </g>
 
-  <!-- Rechts nur ein ruhiges Sternbild statt Streamfenster: Das hier ist ein Profil, keine Werbung
-       für einen Stream (Wunsch 2026-11-14, „LIVE 24/7“ war zu viel). -->
-  <g stroke="#ffffff" stroke-opacity="0.16" stroke-width="1" fill="none">
-    <polyline points="616,58 690,96 762,62 798,112"/>
-    <polyline points="690,96 650,140 742,156"/>
-  </g>
-  <g transform="translate(690 96) scale(1.5)"><use href="#spark" class="tw"/></g>
-  <g transform="translate(762 62) scale(0.9)"><use href="#spark" class="tw d1"/></g>
-  <g transform="translate(616 58) scale(0.55)"><use href="#spark" class="tw d2"/></g>
-  <g transform="translate(798 112) scale(0.6)"><use href="#spark" class="tw d2"/></g>
-  <g transform="translate(650 140) scale(0.7)"><use href="#spark" class="tw d1"/></g>
-  <g transform="translate(742 156) scale(0.5)"><use href="#spark" class="tw"/></g>
+  <!-- Rechts nur lose verteilte Funkelsterne. Vorher stand hier ein Streamfenster mit „LIVE 24/7“
+       (wirkte wie Werbung), danach ein Sternbild mit Verbindungslinien – dessen Haken ließen sich
+       als Symbol fehldeuten (beides 2026-11-14 verworfen). Wer wieder Linien zieht, prüft die Figur
+       vorher auf solche Lesarten. -->
+  <g transform="translate(724 78) scale(1.3)"><use href="#spark" class="tw"/></g>
+  <g transform="translate(668 132) scale(0.8)"><use href="#spark" class="tw d1"/></g>
+  <g transform="translate(612 54) scale(0.5)"><use href="#spark" class="tw d2"/></g>
+  <g transform="translate(790 140) scale(0.6)"><use href="#spark" class="tw d2"/></g>
+  <g transform="translate(806 44) scale(0.45)"><use href="#spark" class="tw d1"/></g>
+  <g transform="translate(748 172) scale(0.4)"><use href="#spark" class="tw"/></g>
   <g transform="translate(540 30) scale(0.4)"><use href="#spark" class="tw d1"/></g>
-  <g transform="translate(812 176) scale(0.5)"><use href="#spark" class="tw"/></g>
 </svg>
