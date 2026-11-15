@@ -7,7 +7,6 @@
     .sub { font-size: 12px; fill: #59636e; }
     .name { font-size: 13px; fill: #1f2328; }
     .share { font-size: 13px; fill: #59636e; }
-    .note { font-size: 11px; fill: #656d76; }
   </style>
   <defs>
     <clipPath id="bar"><rect x="20" y="70" width="360" height="8" rx="4"/></clipPath>
@@ -41,5 +40,4 @@
   <circle cx="215" cy="173.5" r="5" fill="#8c959f"/>
   <text x="228" y="178" class="name">Sonstige</text>
   <text x="380" y="178" class="share" text-anchor="end">5,5 %</text>
-  <text x="20" y="222" class="note">Zählung von GitHub, ohne eingebundenen Fremdcode</text>
 </svg>

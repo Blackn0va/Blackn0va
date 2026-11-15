@@ -32,12 +32,6 @@
 </div>
 <!-- stats:end -->
 
-<div align="center">
-<sub>Gezählt werden meine Commits auf den Hauptzweigen aller eigenen Repositories – öffentlicher und privater.<br>
-Beiträge laut GitHub-Kalender seit 2015: Commits, Pull Requests, Issues und Reviews – das Raster zeigt die letzten 12 Monate.<br>
-Der Code von StreamWizard bleibt privat, die Zahlen nicht.</sub>
-</div>
-
 ---
 
 ## 🧙 StreamWizard

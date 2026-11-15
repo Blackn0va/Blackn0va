@@ -298,7 +298,6 @@ function New-LanguagesSvg([System.Collections.IDictionary] $T, [System.Collectio
     .sub { font-size: 12px; fill: $($T.Text2); }
     .name { font-size: 13px; fill: $($T.Text); }
     .share { font-size: 13px; fill: $($T.Text2); }
-    .note { font-size: 11px; fill: $($T.Muted); }
   </style>
   <defs>
     <clipPath id="bar"><rect x="20" y="70" width="360" height="8" rx="4"/></clipPath>
@@ -310,7 +309,6 @@ function New-LanguagesSvg([System.Collections.IDictionary] $T, [System.Collectio
 $($segments -join "`n")
   </g>
 $($legend -join "`n")
-  <text x="20" y="222" class="note">Zählung von GitHub, ohne eingebundenen Fremdcode</text>
 </svg>
 "@
 }
