@@ -9,6 +9,7 @@
         Standardzweigen und schreibt daraus:
           assets/stats-dark.svg, assets/stats-light.svg          Karte „GitHub in Zahlen“
           assets/languages-dark.svg, assets/languages-light.svg  Karte „Sprachen“
+          assets/contributions-dark.svg, …-light.svg             Karte „Beiträge“ (Kalender, 12 Monate)
           assets/stats.json                                      Vergleichsstand für den nächsten Lauf
           README.md                                              Block zwischen den stats-Markierungen
 
@@ -21,7 +22,10 @@
           Bewusst übergehen (etwa nach dem Löschen eines Repositories) mit -Erzwingen.
         - Ein Ausschlussname, der zu keinem Repository passt, bricht ebenfalls ab. Sonst kämen die
           ausgeschlossenen Commits nach einer Umbenennung unbemerkt zurück in die Zahl.
+        - Hat ein ausgeschlossenes Repository Commits im Zeitraum des Beitragskalenders, bricht das
+          Skript ab: GitHub zählt sie im Kalender mit, und das Skript rechnet sie dort nicht heraus.
         - Ändert sich nichts, bleibt jede Datei unangetastet – der Workflow committet dann nichts.
+          Der Kalender rückt allerdings jeden Tag weiter, die Beitragskarte ändert sich also täglich.
 
     Was zählt
         Projekte  eigene Repositories ohne Forks, ohne das Profil-Repository und ohne die
@@ -29,6 +33,9 @@
         Commits   Commits mit dem Konto als Autor auf dem Standardzweig jedes eigenen Repositories
                   außer den ausgeschlossenen; in Forks zählen nur die eigenen
         Sprachen  Codeumfang laut GitHub-Linguist (vendorte Ordner zählt GitHub nicht mit)
+        Beiträge  GitHubs Beitragskalender der letzten 12 Monate: Commits, Pull Requests, Issues,
+                  Reviews und neue Repositories, private als reine Anzahl (Profileinstellung
+                  „Private contributions“ muss an sein)
 
     Voraussetzungen
         - PowerShell 7 und die GitHub CLI (gh)
@@ -109,6 +116,9 @@ $languageSlots = [ordered]@{
 # für die hellen und die dunklen Kartenflächen getrennt gestuft. Gemessen am 2026-11-14 mit
 # validate_palette.js gegen #f6f8fa und #161b22: alle Pflichtprüfungen bestanden; Magenta liegt hell
 # unter 3:1 und braucht deshalb die Legende mit Namen und Anteil, die die Karte ohnehin hat.
+# Heat sind die vier Stufen des Beitragskalenders, ein Violett von wenig nach viel. Gemessen am
+# 2026-11-15 mit validate_palette.js --ordinal: hell bestanden (blasseste Stufe 2,07:1); dunkel fiel
+# #4b2f99 mit 1,78:1 durch, daher beginnt die Reihe bei #5a3cb0 (2,23:1). Empty ist der Tag ohne Beitrag.
 $themes = [ordered]@{
     dark  = @{
         Surface   = '#161b22'
@@ -117,6 +127,8 @@ $themes = [ordered]@{
         Text2     = '#9198a1'
         Muted     = '#848d97'
         Other     = '#6e7681'
+        Empty     = '#21262d'
+        Heat      = @('#5a3cb0', '#7653db', '#9a7cf5', '#c8b6ff')
         Languages = @('#d95926', '#3987e5', '#9085e9', '#199e70', '#c98500', '#0ca30c', '#d55181', '#e66767')
     }
     light = @{
@@ -126,6 +138,8 @@ $themes = [ordered]@{
         Text2     = '#59636e'
         Muted     = '#656d76'
         Other     = '#8c959f'
+        Empty     = '#e6eaef'
+        Heat      = @('#b9a2f5', '#9171ee', '#6d43d9', '#4c22a8')
         Languages = @('#eb6834', '#2a78d6', '#6250d6', '#1baf7a', '#eda100', '#008300', '#e87ba4', '#e34948')
     }
 }
@@ -150,9 +164,12 @@ function ConvertTo-XmlText([string] $Value) {
 
 # FALLE: ConvertFrom-Json macht aus ISO-Zeitstempeln von sich aus DateTime-Werte. -DateKind String
 # schaltet das erst ab PowerShell 7.5 ab, die Runner haben teils 7.4. Deshalb beide Formen annehmen.
+# Nur Ortszeit wird nach UTC umgerechnet: Ein reines Datum („2025-11-16“) kommt als Unspecified und
+# würde sonst in Berlin auf den Vortag rutschen.
 function ConvertTo-IsoDate($Value) {
     if ($Value -is [datetime]) {
-        return $Value.ToUniversalTime().ToString('yyyy-MM-dd', $inv)
+        $utc = if ($Value.Kind -eq [System.DateTimeKind]::Local) { $Value.ToUniversalTime() } else { $Value }
+        return $utc.ToString('yyyy-MM-dd', $inv)
     }
     return ([string]$Value).Substring(0, 10)
 }
@@ -282,6 +299,122 @@ $($legend -join "`n")
 "@
 }
 
+function Format-Days([int] $Value) {
+    if ($Value -eq 1) { return '1<tspan class="unit"> Tag</tspan>' }
+    return "$(Format-Count $Value)<tspan class=`"unit`"> Tage</tspan>"
+}
+
+function New-ContributionsSvg([System.Collections.IDictionary] $T, [System.Collections.IDictionary] $S, [object[]] $Days, [string] $DateText) {
+    $c = $S.contributions
+
+    # Stufen nach Quartilen der aktiven Tage, nicht nach GitHubs contributionLevel. GitHub misst am
+    # Tagesmaximum; mit einzelnen Tagen über 100 Beiträgen lagen am 2026-11-15 205 von 235 aktiven
+    # Tagen in der untersten Stufe, und der Kalender war praktisch einfarbig.
+    $active = @($Days | Where-Object { $_.Total -gt 0 } | ForEach-Object { $_.Total } | Sort-Object)
+    $thresholds = @(0, 0, 0)
+    if ($active.Count -gt 0) {
+        $thresholds = @(0.25, 0.5, 0.75 | ForEach-Object {
+                $active[[Math]::Min($active.Count - 1, [int][Math]::Floor($_ * $active.Count))]
+            })
+    }
+
+    # Raster mit Montag als erster Zeile, eine Spalte je Woche.
+    $first = [datetime]::ParseExact($Days[0].Day, 'yyyy-MM-dd', $inv)
+    $gridStart = $first.AddDays(-(([int]$first.DayOfWeek + 6) % 7))
+    $last = [datetime]::ParseExact($Days[-1].Day, 'yyyy-MM-dd', $inv)
+    $columns = [int][Math]::Floor(($last - $gridStart).TotalDays / 7) + 1
+    $gridLeft = 48.0
+    $gridRight = 784.0
+    $gap = 3.0
+    $step = [Math]::Floor((($gridRight - $gridLeft + $gap) / $columns) * 4) / 4
+    $cell = $step - $gap
+    $gridTop = 150.0
+    $gridBottom = $gridTop + 7 * $step - $gap
+
+    $cells = [System.Collections.Generic.List[string]]::new()
+    $monthStarts = [System.Collections.Generic.List[object]]::new()
+    foreach ($day in $Days) {
+        $date = [datetime]::ParseExact($day.Day, 'yyyy-MM-dd', $inv)
+        $col = [int][Math]::Floor(($date - $gridStart).TotalDays / 7)
+        $row = ([int]$date.DayOfWeek + 6) % 7
+        $level = if ($day.Total -le 0) { 0 }
+        elseif ($day.Total -le $thresholds[0]) { 1 }
+        elseif ($day.Total -le $thresholds[1]) { 2 }
+        elseif ($day.Total -le $thresholds[2]) { 3 }
+        else { 4 }
+        $fill = if ($level -eq 0) { $T.Empty } else { $T.Heat[$level - 1] }
+        $label = if ($day.Total -eq 1) { '1 Beitrag' } else { "$(Format-Count $day.Total) Beiträge" }
+        $cells.Add("    <rect x=`"$(Format-Coordinate ($gridLeft + $col * $step))`" y=`"$(Format-Coordinate ($gridTop + $row * $step))`" " +
+            "width=`"$(Format-Coordinate $cell)`" height=`"$(Format-Coordinate $cell)`" rx=`"2`" fill=`"$fill`">" +
+            "<title>$($date.ToString('dd.MM.yyyy', $de)): $label</title></rect>")
+        if ($date.Day -eq 1) {
+            $monthStarts.Add(@{ Col = $col; Month = $date.Month })
+        }
+    }
+
+    # Monatsnamen über der Spalte mit dem Ersten. Beginnt das Raster mitten im Monat, bekommt die
+    # erste Spalte dessen Namen – aber nur, wenn der nächste Monatsname nicht darauf säße.
+    $monthNames = @('Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez')
+    $labels = [System.Collections.Generic.List[string]]::new()
+    if ($first.Day -ne 1 -and ($monthStarts.Count -eq 0 -or $monthStarts[0].Col -ge 3)) {
+        $labels.Add("  <text x=`"$(Format-Coordinate $gridLeft)`" y=`"$(Format-Coordinate ($gridTop - 8))`" class=`"axis`">$($monthNames[$first.Month - 1])</text>")
+    }
+    foreach ($start in $monthStarts) {
+        $labels.Add("  <text x=`"$(Format-Coordinate ($gridLeft + $start.Col * $step))`" y=`"$(Format-Coordinate ($gridTop - 8))`" class=`"axis`">$($monthNames[$start.Month - 1])</text>")
+    }
+    foreach ($pair in @(@(0, 'Mo'), @(2, 'Mi'), @(4, 'Fr'))) {
+        $labels.Add("  <text x=`"20`" y=`"$(Format-Coordinate ($gridTop + $pair[0] * $step + $cell - 1.5))`" class=`"axis`">$($pair[1])</text>")
+    }
+
+    # Legende rechts unter dem Raster: weniger □□□□□ mehr
+    $legendY = $gridBottom + 12
+    $legend = [System.Collections.Generic.List[string]]::new()
+    $legendColors = @($T.Empty) + @($T.Heat)
+    for ($i = 0; $i -lt 5; $i++) {
+        $legend.Add("  <rect x=`"$(Format-Coordinate (692 + $i * 13))`" y=`"$(Format-Coordinate $legendY)`" width=`"10`" height=`"10`" rx=`"2`" fill=`"$($legendColors[$i])`"/>")
+    }
+    $legend.Add("  <text x=`"686`" y=`"$(Format-Coordinate ($legendY + 9))`" class=`"axis`" text-anchor=`"end`">weniger</text>")
+    $legend.Add("  <text x=`"784`" y=`"$(Format-Coordinate ($legendY + 9))`" class=`"axis`" text-anchor=`"end`">mehr</text>")
+
+    $height = [Math]::Ceiling($legendY + 30)
+    $desc = "Beiträge der letzten 12 Monate: $(Format-Count $c.total) an $(Format-Count $c.activeDays) aktiven Tagen; " +
+        "längste Serie $($c.longestStreak) Tage, aktuelle Serie $($c.currentStreak) Tage."
+
+    return @"
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="$height" viewBox="0 0 804 $height" role="img" aria-labelledby="t d">
+  <title id="t">Beiträge</title>
+  <desc id="d">$(ConvertTo-XmlText $desc)</desc>
+  <style>
+    text { font-family: $svgFont; }
+    .h { font-size: 15px; font-weight: 600; fill: $($T.Text); }
+    .sub { font-size: 12px; fill: $($T.Text2); }
+    .val { font-size: 22px; font-weight: 600; fill: $($T.Text); }
+    .unit { font-size: 14px; font-weight: 400; fill: $($T.Text2); }
+    .lab { font-size: 12.5px; fill: $($T.Text2); }
+    .axis { font-size: 10px; fill: $($T.Muted); }
+  </style>
+  <rect x="0.5" y="0.5" width="803" height="$($height - 1)" rx="10" fill="$($T.Surface)" stroke="$($T.Border)"/>
+  <text x="20" y="32" class="h">Beiträge</text>
+  <text x="20" y="51" class="sub">letzte 12 Monate · öffentliche und private Repositories · Stand $DateText</text>
+
+  <text x="20" y="92" class="val">$(Format-Count $c.total)</text>
+  <text x="20" y="111" class="lab">Beiträge</text>
+  <text x="210" y="92" class="val">$(Format-Count $c.activeDays)</text>
+  <text x="210" y="111" class="lab">aktive Tage</text>
+  <text x="400" y="92" class="val">$(Format-Days $c.longestStreak)</text>
+  <text x="400" y="111" class="lab">längste Serie</text>
+  <text x="590" y="92" class="val">$(Format-Days $c.currentStreak)</text>
+  <text x="590" y="111" class="lab">aktuelle Serie</text>
+
+$($labels -join "`n")
+  <g>
+$($cells -join "`n")
+  </g>
+$($legend -join "`n")
+</svg>
+"@
+}
+
 function New-ReadmeBlock([System.Collections.IDictionary] $S, [string] $DateText) {
     $years = @($S.commitsByYear.Keys)
     $currentYear = $years[-1]
@@ -289,6 +422,9 @@ function New-ReadmeBlock([System.Collections.IDictionary] $S, [string] $DateText
         "$(Format-Count ([long]$S.commitsByYear[$currentYear])) im Jahr $currentYear; $($S.projects) Projekte, " +
         "davon $($S.projectsPrivate) privat; auf GitHub seit $($S.memberSince)."
     $langAlt = 'Sprachen nach Codeumfang: ' + (($S.languages | ForEach-Object { "$($_.name) $(Format-Share $_.share)" }) -join ', ') + '.'
+    $c = $S.contributions
+    $contribAlt = "Beiträge der letzten 12 Monate, Stand $DateText`: $(Format-Count $c.total) an $(Format-Count $c.activeDays) " +
+        "aktiven Tagen; längste Serie $($c.longestStreak) Tage, aktuelle Serie $($c.currentStreak) Tage."
     return @"
 <!-- stats:start -->
 <!-- Dieser Block wird von scripts/Statistik-aktualisieren.ps1 geschrieben – Änderungen hier gehen beim nächsten Lauf verloren. -->
@@ -301,17 +437,23 @@ function New-ReadmeBlock([System.Collections.IDictionary] $S, [string] $DateText
   <source media="(prefers-color-scheme: dark)" srcset="assets/languages-dark.svg">
   <img src="assets/languages-light.svg" width="400" alt="$(ConvertTo-XmlText $langAlt)">
 </picture>
+<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg">
+  <img src="assets/contributions-light.svg" width="804" alt="$(ConvertTo-XmlText $contribAlt)">
+</picture>
 </div>
 <!-- stats:end -->
 "@
 }
 
-function New-Outputs([System.Collections.IDictionary] $S, [string] $IsoDate, [string] $Readme) {
+function New-Outputs([System.Collections.IDictionary] $S, [object[]] $Days, [string] $IsoDate, [string] $Readme) {
     $dateText = [datetime]::ParseExact($IsoDate, 'yyyy-MM-dd', $inv).ToString('dd.MM.yyyy', $de)
     $outputs = [ordered]@{}
     foreach ($name in $themes.Keys) {
         $outputs[(Join-Path $assetsDir "stats-$name.svg")] = New-StatsSvg $themes[$name] $S $dateText
         $outputs[(Join-Path $assetsDir "languages-$name.svg")] = New-LanguagesSvg $themes[$name] $S
+        $outputs[(Join-Path $assetsDir "contributions-$name.svg")] = New-ContributionsSvg $themes[$name] $S $Days $dateText
     }
 
     $record = [ordered]@{ updated = $IsoDate }
@@ -352,12 +494,55 @@ try {
     $currentYear = $today.Year
     Hinweis "$Konto, auf GitHub seit $memberSince"
 
+    Schritt 'Beitragskalender abrufen'
+    $calendarQuery = @'
+query($login: String!) {
+  user(login: $login) {
+    contributionsCollection {
+      contributionCalendar {
+        totalContributions
+        weeks { contributionDays { date contributionCount } }
+      }
+    }
+  }
+}
+'@
+    $calendar = (Invoke-GitHubGraphQl -Query $calendarQuery -Variables @{ login = $Konto })['user']['contributionsCollection']['contributionCalendar']
+    $days = @($calendar['weeks'] | ForEach-Object { $_['contributionDays'] } | ForEach-Object {
+            [pscustomobject]@{ Day = (ConvertTo-IsoDate $_['date']); Total = [int]$_['contributionCount'] }
+        } | Sort-Object -Property Day)
+    if ($days.Count -eq 0) {
+        throw 'Der Beitragskalender von GitHub ist leer.'
+    }
+    $activeDays = @($days | Where-Object { $_.Total -gt 0 }).Count
+    $longestStreak = 0
+    $run = 0
+    foreach ($day in $days) {
+        if ($day.Total -gt 0) {
+            $run++
+            $longestStreak = [Math]::Max($longestStreak, $run)
+        } else {
+            $run = 0
+        }
+    }
+    # Aktuelle Serie: Ein heute noch leerer Tag beendet sie nicht – der Tag ist ja noch nicht vorbei.
+    $currentStreak = 0
+    for ($i = $days.Count - 1; $i -ge 0; $i--) {
+        if ($days[$i].Total -gt 0) {
+            $currentStreak++
+        } elseif ($i -lt $days.Count - 1) {
+            break
+        }
+    }
+    # Einen Tag Vorlauf, damit Zeitzonen am Kalenderanfang keinen Commit durchrutschen lassen.
+    $calendarSince = [datetime]::ParseExact($days[0].Day, 'yyyy-MM-dd', $inv).AddDays(-1).ToString('yyyy-MM-dd', $inv) + 'T00:00:00Z'
+
     Schritt 'Repositories und Commits zählen'
     $yearFields = ($memberSince..$currentYear | ForEach-Object {
             'y{0}: history(author: {{ id: $authorId }}, since: "{0}-01-01T00:00:00Z", until: "{0}-12-31T23:59:59Z") {{ totalCount }}' -f $_
         }) -join "`n              "
     $repoQuery = @'
-query($authorId: ID!, $cursor: String) {
+query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
   viewer {
     repositories(first: 20, after: $cursor, ownerAffiliations: OWNER, orderBy: { field: NAME, direction: ASC }) {
       pageInfo { hasNextPage endCursor }
@@ -370,6 +555,7 @@ query($authorId: ID!, $cursor: String) {
           target {
             ... on Commit {
               total: history(author: { id: $authorId }) { totalCount }
+              recent: history(author: { id: $authorId }, since: $since) { totalCount }
               __YEARS__
             }
           }
@@ -383,7 +569,7 @@ query($authorId: ID!, $cursor: String) {
     $repos = [System.Collections.Generic.List[hashtable]]::new()
     $cursor = $null
     do {
-        $connection = (Invoke-GitHubGraphQl -Query $repoQuery -Variables @{ authorId = $viewer['id']; cursor = $cursor })['viewer']['repositories']
+        $connection = (Invoke-GitHubGraphQl -Query $repoQuery -Variables @{ authorId = $viewer['id']; cursor = $cursor; since = $calendarSince })['viewer']['repositories']
         foreach ($node in $connection['nodes']) {
             $repos.Add($node)
         }
@@ -407,8 +593,13 @@ query($authorId: ID!, $cursor: String) {
     $projectsPublic = 0
     $projectsPrivate = 0
     $languageBytes = @{}
+    [long]$excludedRecent = 0
     foreach ($repo in $repos) {
         if ($excluded -contains $repo['name']) {
+            $excludedBranch = $repo['defaultBranchRef']
+            if ($null -ne $excludedBranch -and $null -ne $excludedBranch['target']) {
+                $excludedRecent += [long]$excludedBranch['target']['recent']['totalCount']
+            }
             continue
         }
         $branch = $repo['defaultBranchRef']
@@ -429,7 +620,12 @@ query($authorId: ID!, $cursor: String) {
         }
     }
 
-    # Jahre vor dem ersten eigenen Commit tragen nichts bei – die Säulen beginnen beim ersten Commit.
+    if ($excludedRecent -gt 0) {
+        Fehler "Ausgeschlossene Repositories haben $excludedRecent Commit(s) im Zeitraum des Beitragskalenders. GitHub zählt sie dort mit, das Skript rechnet sie nicht heraus. Nichts geschrieben."
+        exit 1
+    }
+
+    # Jahre vor dem ersten eigenen Commit tragen nichts bei und bleiben aus stats.json draußen.
     $firstActive = @($commitsByYear.Keys | Where-Object { $commitsByYear[$_] -gt 0 } | Select-Object -First 1)
     $trimmed = [ordered]@{}
     $started = $false
@@ -466,12 +662,21 @@ query($authorId: ID!, $cursor: String) {
         commitsByYear   = $trimmed
         memberSince     = $memberSince
         languages       = $languages
+        contributions   = [ordered]@{
+            total         = [int]$calendar['totalContributions']
+            activeDays    = $activeDays
+            longestStreak = $longestStreak
+            currentStreak = $currentStreak
+            from          = $days[0].Day
+            to            = $days[-1].Day
+        }
     }
 
     Hinweis "Projekte: $($stats.projects) ($projectsPublic öffentlich, $projectsPrivate privat)"
     Hinweis "Commits: $(Format-Count $commits), davon $currentYear`: $(Format-Count $trimmed["$currentYear"])"
     Hinweis "Je Jahr: $(($trimmed.Keys | ForEach-Object { "$_=$($trimmed[$_])" }) -join ' ')"
     Hinweis "Sprachen: $(($languages | ForEach-Object { "$($_.name) $(Format-Share $_.share)" }) -join ', ')"
+    Hinweis "Beiträge $($days[0].Day) bis $($days[-1].Day): $(Format-Count $stats.contributions.total) an $activeDays Tagen, längste Serie $longestStreak, aktuelle $currentStreak"
     Hinweis "Ausgeschlossen: $($excluded.Count) Repository/Repositories"
 
     $previous = $null
@@ -496,7 +701,7 @@ query($authorId: ID!, $cursor: String) {
     # geändert – das Datum bleibt stehen und der Workflow findet nichts zu committen.
     $unchanged = $false
     if ($null -ne $previous -and $previous['updated']) {
-        $candidate = New-Outputs $stats (ConvertTo-IsoDate $previous['updated']) $readme
+        $candidate = New-Outputs $stats $days (ConvertTo-IsoDate $previous['updated']) $readme
         $unchanged = $true
         foreach ($path in $candidate.Keys) {
             $existing = if (Test-Path -LiteralPath $path) { (Get-Content -LiteralPath $path -Raw) -replace "`r`n", "`n" } else { $null }
@@ -511,7 +716,7 @@ query($authorId: ID!, $cursor: String) {
         exit 0
     }
 
-    $outputs = New-Outputs $stats $today.ToString('yyyy-MM-dd', $inv) $readme
+    $outputs = New-Outputs $stats $days $today.ToString('yyyy-MM-dd', $inv) $readme
     if ($Probelauf) {
         Hinweis "Probelauf – würde $($outputs.Count) Dateien schreiben:"
         foreach ($path in $outputs.Keys) {

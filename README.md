@@ -18,17 +18,23 @@
 <div align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/stats-dark.svg">
-  <img src="assets/stats-light.svg" width="400" alt="GitHub in Zahlen, Stand 15.11.2026: 2.128 Commits, davon 1.613 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.">
+  <img src="assets/stats-light.svg" width="400" alt="GitHub in Zahlen, Stand 15.11.2026: 2.132 Commits, davon 1.617 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/languages-dark.svg">
   <img src="assets/languages-light.svg" width="400" alt="Sprachen nach Codeumfang: C++ 38,1 %, Java 30,2 %, PHP 21,0 %, Python 2,8 %, PowerShell 2,5 %, Sonstige 5,4 %.">
+</picture>
+<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg">
+  <img src="assets/contributions-light.svg" width="804" alt="Beiträge der letzten 12 Monate, Stand 15.11.2026: 1.919 an 235 aktiven Tagen; längste Serie 21 Tage, aktuelle Serie 5 Tage.">
 </picture>
 </div>
 <!-- stats:end -->
 
 <div align="center">
 <sub>Gezählt werden meine Commits auf den Hauptzweigen aller eigenen Repositories – öffentlicher und privater.<br>
+Beiträge laut GitHub-Kalender: Commits, Pull Requests, Issues und Reviews der letzten 12 Monate.<br>
 Der Code von StreamWizard bleibt privat, die Zahlen nicht.</sub>
 </div>
 
