@@ -9,7 +9,7 @@
         Standardzweigen und schreibt daraus:
           assets/stats-dark.svg, assets/stats-light.svg          Karte „GitHub in Zahlen“
           assets/languages-dark.svg, assets/languages-light.svg  Karte „Sprachen“
-          assets/contributions-dark.svg, …-light.svg             Karte „Beiträge“ (Kalender, 12 Monate)
+          assets/contributions-dark.svg, …-light.svg             Karte „Beiträge“ (gesamt, Raster 12 Monate)
           assets/stats.json                                      Vergleichsstand für den nächsten Lauf
           README.md                                              Block zwischen den stats-Markierungen
 
@@ -22,8 +22,9 @@
           Bewusst übergehen (etwa nach dem Löschen eines Repositories) mit -Erzwingen.
         - Ein Ausschlussname, der zu keinem Repository passt, bricht ebenfalls ab. Sonst kämen die
           ausgeschlossenen Commits nach einer Umbenennung unbemerkt zurück in die Zahl.
-        - Hat ein ausgeschlossenes Repository Commits im Zeitraum des Beitragskalenders, bricht das
-          Skript ab: GitHub zählt sie im Kalender mit, und das Skript rechnet sie dort nicht heraus.
+        - GitHub zählt Commits ausgeschlossener Repositories im Beitragskalender mit. Das Skript
+          zieht sie Tag für Tag ab; finden mehr als zehn davon keinen Kalendertag, hat GitHub die
+          Tageszuordnung geändert, und das Skript bricht ab.
         - Ändert sich nichts, bleibt jede Datei unangetastet – der Workflow committet dann nichts.
           Der Kalender rückt allerdings jeden Tag weiter, die Beitragskarte ändert sich also täglich.
 
@@ -33,9 +34,10 @@
         Commits   Commits mit dem Konto als Autor auf dem Standardzweig jedes eigenen Repositories
                   außer den ausgeschlossenen; in Forks zählen nur die eigenen
         Sprachen  Codeumfang laut GitHub-Linguist (vendorte Ordner zählt GitHub nicht mit)
-        Beiträge  GitHubs Beitragskalender der letzten 12 Monate: Commits, Pull Requests, Issues,
-                  Reviews und neue Repositories, private als reine Anzahl (Profileinstellung
-                  „Private contributions“ muss an sein)
+        Beiträge  GitHubs Beitragskalender seit dem Beitritt, ohne die Commits der ausgeschlossenen
+                  Repositories: Commits, Pull Requests, Issues, Reviews und neue Repositories,
+                  private als reine Anzahl (Profileinstellung „Private contributions“ muss an sein).
+                  Das Raster auf der Karte zeigt die letzten 365 Tage.
 
     Voraussetzungen
         - PowerShell 7 und die GitHub CLI (gh)
@@ -172,6 +174,20 @@ function ConvertTo-IsoDate($Value) {
         return $utc.ToString('yyyy-MM-dd', $inv)
     }
     return ([string]$Value).Substring(0, 10)
+}
+
+# Zeitstempel mit Uhrzeit („…T22:38:34Z“) als DateTimeOffset in UTC – gleich, ob ConvertFrom-Json
+# daraus schon ein DateTime gemacht hat (Utc oder Ortszeit) oder ihn als Text liefert.
+function ConvertTo-UtcOffset($Value) {
+    if ($Value -is [datetime]) {
+        $utc = switch ($Value.Kind) {
+            'Local' { $Value.ToUniversalTime() }
+            'Utc' { $Value }
+            default { [datetime]::SpecifyKind($Value, [System.DateTimeKind]::Utc) }
+        }
+        return [datetimeoffset]::new($utc)
+    }
+    return [datetimeoffset]::Parse([string]$Value, $inv)
 }
 
 function Invoke-GitHubGraphQl {
@@ -373,12 +389,13 @@ function New-ContributionsSvg([System.Collections.IDictionary] $T, [System.Colle
     for ($i = 0; $i -lt 5; $i++) {
         $legend.Add("  <rect x=`"$(Format-Coordinate (692 + $i * 13))`" y=`"$(Format-Coordinate $legendY)`" width=`"10`" height=`"10`" rx=`"2`" fill=`"$($legendColors[$i])`"/>")
     }
+    $legend.Add("  <text x=`"$(Format-Coordinate $gridLeft)`" y=`"$(Format-Coordinate ($legendY + 9))`" class=`"axis`">Raster: letzte 12 Monate</text>")
     $legend.Add("  <text x=`"686`" y=`"$(Format-Coordinate ($legendY + 9))`" class=`"axis`" text-anchor=`"end`">weniger</text>")
     $legend.Add("  <text x=`"784`" y=`"$(Format-Coordinate ($legendY + 9))`" class=`"axis`" text-anchor=`"end`">mehr</text>")
 
     $height = [Math]::Ceiling($legendY + 30)
-    $desc = "Beiträge der letzten 12 Monate: $(Format-Count $c.total) an $(Format-Count $c.activeDays) aktiven Tagen; " +
-        "längste Serie $($c.longestStreak) Tage, aktuelle Serie $($c.currentStreak) Tage."
+    $desc = "Beiträge seit $($c.since): $(Format-Count $c.total) an $(Format-Count $c.activeDays) aktiven Tagen; " +
+        "längste Serie $($c.longestStreak) Tage, aktuelle Serie $($c.currentStreak) Tage. Das Raster zeigt die letzten 12 Monate."
 
     return @"
 <svg xmlns="http://www.w3.org/2000/svg" width="804" height="$height" viewBox="0 0 804 $height" role="img" aria-labelledby="t d">
@@ -395,7 +412,7 @@ function New-ContributionsSvg([System.Collections.IDictionary] $T, [System.Colle
   </style>
   <rect x="0.5" y="0.5" width="803" height="$($height - 1)" rx="10" fill="$($T.Surface)" stroke="$($T.Border)"/>
   <text x="20" y="32" class="h">Beiträge</text>
-  <text x="20" y="51" class="sub">letzte 12 Monate · öffentliche und private Repositories · Stand $DateText</text>
+  <text x="20" y="51" class="sub">gesamt seit $($c.since) · öffentliche und private Repositories · Stand $DateText</text>
 
   <text x="20" y="92" class="val">$(Format-Count $c.total)</text>
   <text x="20" y="111" class="lab">Beiträge</text>
@@ -423,8 +440,8 @@ function New-ReadmeBlock([System.Collections.IDictionary] $S, [string] $DateText
         "davon $($S.projectsPrivate) privat; auf GitHub seit $($S.memberSince)."
     $langAlt = 'Sprachen nach Codeumfang: ' + (($S.languages | ForEach-Object { "$($_.name) $(Format-Share $_.share)" }) -join ', ') + '.'
     $c = $S.contributions
-    $contribAlt = "Beiträge der letzten 12 Monate, Stand $DateText`: $(Format-Count $c.total) an $(Format-Count $c.activeDays) " +
-        "aktiven Tagen; längste Serie $($c.longestStreak) Tage, aktuelle Serie $($c.currentStreak) Tage."
+    $contribAlt = "Beiträge seit $($c.since), Stand $DateText`: $(Format-Count $c.total) an $(Format-Count $c.activeDays) " +
+        "aktiven Tagen; längste Serie $($c.longestStreak) Tage, aktuelle Serie $($c.currentStreak) Tage. Das Raster zeigt die letzten 12 Monate."
     return @"
 <!-- stats:start -->
 <!-- Dieser Block wird von scripts/Statistik-aktualisieren.ps1 geschrieben – Änderungen hier gehen beim nächsten Lauf verloren. -->
@@ -495,54 +512,42 @@ try {
     Hinweis "$Konto, auf GitHub seit $memberSince"
 
     Schritt 'Beitragskalender abrufen'
+    # GitHub liefert den Kalender höchstens ein Jahr am Stück – also Jahr für Jahr seit dem Beitritt.
     $calendarQuery = @'
-query($login: String!) {
+query($login: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $login) {
-    contributionsCollection {
-      contributionCalendar {
-        totalContributions
-        weeks { contributionDays { date contributionCount } }
-      }
+    contributionsCollection(from: $from, to: $to) {
+      contributionCalendar { weeks { contributionDays { date contributionCount } } }
     }
   }
 }
 '@
-    $calendar = (Invoke-GitHubGraphQl -Query $calendarQuery -Variables @{ login = $Konto })['user']['contributionsCollection']['contributionCalendar']
-    $days = @($calendar['weeks'] | ForEach-Object { $_['contributionDays'] } | ForEach-Object {
-            [pscustomobject]@{ Day = (ConvertTo-IsoDate $_['date']); Total = [int]$_['contributionCount'] }
-        } | Sort-Object -Property Day)
-    if ($days.Count -eq 0) {
+    $todayIso = $today.ToString('yyyy-MM-dd', $inv)
+    $contributionsByDay = [System.Collections.Generic.SortedDictionary[string, long]]::new()
+    foreach ($y in $memberSince..$currentYear) {
+        $variables = @{ login = $Konto; from = "$y-01-01T00:00:00Z"; to = "$y-12-31T23:59:59Z" }
+        $weeks = (Invoke-GitHubGraphQl -Query $calendarQuery -Variables $variables)['user']['contributionsCollection']['contributionCalendar']['weeks']
+        foreach ($week in $weeks) {
+            foreach ($entry in $week['contributionDays']) {
+                $date = ConvertTo-IsoDate $entry['date']
+                # Nur Tage des abgefragten Jahres und nichts nach heute: Das laufende Jahr kommt bis
+                # Silvester mit lauter Nullen, und die würden die aktuelle Serie beenden.
+                if ($date.StartsWith("$y-") -and $date -le $todayIso) {
+                    $contributionsByDay[$date] = [long]$entry['contributionCount']
+                }
+            }
+        }
+    }
+    if ($contributionsByDay.Count -eq 0) {
         throw 'Der Beitragskalender von GitHub ist leer.'
     }
-    $activeDays = @($days | Where-Object { $_.Total -gt 0 }).Count
-    $longestStreak = 0
-    $run = 0
-    foreach ($day in $days) {
-        if ($day.Total -gt 0) {
-            $run++
-            $longestStreak = [Math]::Max($longestStreak, $run)
-        } else {
-            $run = 0
-        }
-    }
-    # Aktuelle Serie: Ein heute noch leerer Tag beendet sie nicht – der Tag ist ja noch nicht vorbei.
-    $currentStreak = 0
-    for ($i = $days.Count - 1; $i -ge 0; $i--) {
-        if ($days[$i].Total -gt 0) {
-            $currentStreak++
-        } elseif ($i -lt $days.Count - 1) {
-            break
-        }
-    }
-    # Einen Tag Vorlauf, damit Zeitzonen am Kalenderanfang keinen Commit durchrutschen lassen.
-    $calendarSince = [datetime]::ParseExact($days[0].Day, 'yyyy-MM-dd', $inv).AddDays(-1).ToString('yyyy-MM-dd', $inv) + 'T00:00:00Z'
 
     Schritt 'Repositories und Commits zählen'
     $yearFields = ($memberSince..$currentYear | ForEach-Object {
             'y{0}: history(author: {{ id: $authorId }}, since: "{0}-01-01T00:00:00Z", until: "{0}-12-31T23:59:59Z") {{ totalCount }}' -f $_
         }) -join "`n              "
     $repoQuery = @'
-query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
+query($authorId: ID!, $cursor: String) {
   viewer {
     repositories(first: 20, after: $cursor, ownerAffiliations: OWNER, orderBy: { field: NAME, direction: ASC }) {
       pageInfo { hasNextPage endCursor }
@@ -555,7 +560,6 @@ query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
           target {
             ... on Commit {
               total: history(author: { id: $authorId }) { totalCount }
-              recent: history(author: { id: $authorId }, since: $since) { totalCount }
               __YEARS__
             }
           }
@@ -569,7 +573,7 @@ query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
     $repos = [System.Collections.Generic.List[hashtable]]::new()
     $cursor = $null
     do {
-        $connection = (Invoke-GitHubGraphQl -Query $repoQuery -Variables @{ authorId = $viewer['id']; cursor = $cursor; since = $calendarSince })['viewer']['repositories']
+        $connection = (Invoke-GitHubGraphQl -Query $repoQuery -Variables @{ authorId = $viewer['id']; cursor = $cursor })['viewer']['repositories']
         foreach ($node in $connection['nodes']) {
             $repos.Add($node)
         }
@@ -593,13 +597,8 @@ query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
     $projectsPublic = 0
     $projectsPrivate = 0
     $languageBytes = @{}
-    [long]$excludedRecent = 0
     foreach ($repo in $repos) {
         if ($excluded -contains $repo['name']) {
-            $excludedBranch = $repo['defaultBranchRef']
-            if ($null -ne $excludedBranch -and $null -ne $excludedBranch['target']) {
-                $excludedRecent += [long]$excludedBranch['target']['recent']['totalCount']
-            }
             continue
         }
         $branch = $repo['defaultBranchRef']
@@ -620,10 +619,77 @@ query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
         }
     }
 
-    if ($excludedRecent -gt 0) {
-        Fehler "Ausgeschlossene Repositories haben $excludedRecent Commit(s) im Zeitraum des Beitragskalenders. GitHub zählt sie dort mit, das Skript rechnet sie nicht heraus. Nichts geschrieben."
+    Schritt 'Ausgeschlossene Commits aus dem Kalender herausrechnen'
+    # GitHub zählt Commits ausgeschlossener Repositories im Kalender mit. Sie werden Tag für Tag
+    # abgezogen. Gemessen am 2026-11-15: GitHub ordnet die Tage nach Europe/Berlin zu – damit fand bis
+    # auf einen einzigen Commit jeder seinen Kalendertag, mit UTC an 41 Tagen nicht. Finden deutlich
+    # mehr keinen Tag, hat GitHub die Zuordnung geändert, und die Zahlen wären falsch: dann anhalten.
+    $historyQuery = @'
+query($owner: String!, $name: String!, $authorId: ID!, $cursor: String) {
+  repository(owner: $owner, name: $name) {
+    defaultBranchRef {
+      target {
+        ... on Commit {
+          history(first: 100, after: $cursor, author: { id: $authorId }) {
+            pageInfo { hasNextPage endCursor }
+            nodes { authoredDate }
+          }
+        }
+      }
+    }
+  }
+}
+'@
+    [long]$unplaced = 0
+    foreach ($excludedName in $excluded) {
+        $cursor = $null
+        do {
+            $variables = @{ owner = $Konto; name = $excludedName; authorId = $viewer['id']; cursor = $cursor }
+            $repository = (Invoke-GitHubGraphQl -Query $historyQuery -Variables $variables)['repository']
+            if ($null -eq $repository['defaultBranchRef']) {
+                break
+            }
+            $history = $repository['defaultBranchRef']['target']['history']
+            foreach ($node in $history['nodes']) {
+                $day = [System.TimeZoneInfo]::ConvertTime((ConvertTo-UtcOffset $node['authoredDate']), $berlin).ToString('yyyy-MM-dd', $inv)
+                if ($contributionsByDay.ContainsKey($day) -and $contributionsByDay[$day] -gt 0) {
+                    $contributionsByDay[$day] -= 1
+                } else {
+                    $unplaced++
+                }
+            }
+            $cursor = $history['pageInfo']['endCursor']
+        } while ($history['pageInfo']['hasNextPage'])
+    }
+    if ($unplaced -gt 10) {
+        Fehler "$unplaced ausgeschlossene Commits finden keinen Kalendertag – hat GitHub die Tageszuordnung geändert? Nichts geschrieben."
         exit 1
     }
+
+    $days = @($contributionsByDay.GetEnumerator() | ForEach-Object { [pscustomobject]@{ Day = $_.Key; Total = [long]$_.Value } })
+    [long]$contributionsTotal = ($days | Measure-Object -Property Total -Sum).Sum
+    $activeDays = @($days | Where-Object { $_.Total -gt 0 }).Count
+    $longestStreak = 0
+    $run = 0
+    foreach ($day in $days) {
+        if ($day.Total -gt 0) {
+            $run++
+            $longestStreak = [Math]::Max($longestStreak, $run)
+        } else {
+            $run = 0
+        }
+    }
+    # Aktuelle Serie: Ein heute noch leerer Tag beendet sie nicht – der Tag ist ja noch nicht vorbei.
+    $currentStreak = 0
+    for ($i = $days.Count - 1; $i -ge 0; $i--) {
+        if ($days[$i].Total -gt 0) {
+            $currentStreak++
+        } elseif ($i -lt $days.Count - 1) {
+            break
+        }
+    }
+    # Das Raster zeigt das letzte Jahr; alle Jahre wären für die Kartenbreite zu viele Spalten.
+    $gridDays = @($days | Select-Object -Last 365)
 
     # Jahre vor dem ersten eigenen Commit tragen nichts bei und bleiben aus stats.json draußen.
     $firstActive = @($commitsByYear.Keys | Where-Object { $commitsByYear[$_] -gt 0 } | Select-Object -First 1)
@@ -663,12 +729,11 @@ query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
         memberSince     = $memberSince
         languages       = $languages
         contributions   = [ordered]@{
-            total         = [int]$calendar['totalContributions']
+            total         = $contributionsTotal
             activeDays    = $activeDays
             longestStreak = $longestStreak
             currentStreak = $currentStreak
-            from          = $days[0].Day
-            to            = $days[-1].Day
+            since         = $memberSince
         }
     }
 
@@ -676,7 +741,7 @@ query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
     Hinweis "Commits: $(Format-Count $commits), davon $currentYear`: $(Format-Count $trimmed["$currentYear"])"
     Hinweis "Je Jahr: $(($trimmed.Keys | ForEach-Object { "$_=$($trimmed[$_])" }) -join ' ')"
     Hinweis "Sprachen: $(($languages | ForEach-Object { "$($_.name) $(Format-Share $_.share)" }) -join ', ')"
-    Hinweis "Beiträge $($days[0].Day) bis $($days[-1].Day): $(Format-Count $stats.contributions.total) an $activeDays Tagen, längste Serie $longestStreak, aktuelle $currentStreak"
+    Hinweis "Beiträge seit $memberSince`: $(Format-Count $contributionsTotal) an $activeDays Tagen, längste Serie $longestStreak, aktuelle $currentStreak"
     Hinweis "Ausgeschlossen: $($excluded.Count) Repository/Repositories"
 
     $previous = $null
@@ -701,7 +766,7 @@ query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
     # geändert – das Datum bleibt stehen und der Workflow findet nichts zu committen.
     $unchanged = $false
     if ($null -ne $previous -and $previous['updated']) {
-        $candidate = New-Outputs $stats $days (ConvertTo-IsoDate $previous['updated']) $readme
+        $candidate = New-Outputs $stats $gridDays (ConvertTo-IsoDate $previous['updated']) $readme
         $unchanged = $true
         foreach ($path in $candidate.Keys) {
             $existing = if (Test-Path -LiteralPath $path) { (Get-Content -LiteralPath $path -Raw) -replace "`r`n", "`n" } else { $null }
@@ -716,7 +781,7 @@ query($authorId: ID!, $cursor: String, $since: GitTimestamp!) {
         exit 0
     }
 
-    $outputs = New-Outputs $stats $days $today.ToString('yyyy-MM-dd', $inv) $readme
+    $outputs = New-Outputs $stats $gridDays $today.ToString('yyyy-MM-dd', $inv) $readme
     if ($Probelauf) {
         Hinweis "Probelauf – würde $($outputs.Count) Dateien schreiben:"
         foreach ($path in $outputs.Keys) {
