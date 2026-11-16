@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240" role="img" aria-labelledby="t d">
   <title id="t">Sprachen</title>
-  <desc id="d">Sprachen nach Codeumfang: C++ 38,1 %, Java 30,2 %, PHP 20,9 %, Python 2,8 %, PowerShell 2,5 %, Sonstige 5,5 %.</desc>
+  <desc id="d">Sprachen nach Codeumfang: C++ 37,9 %, Java 30,4 %, PHP 21,0 %, Python 2,8 %, PowerShell 2,5 %, Sonstige 5,4 %.</desc>
   <style>
     text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
     .h { font-size: 15px; font-weight: 600; fill: #1f2328; }
@@ -15,22 +15,22 @@
   <text x="20" y="32" class="h">Sprachen</text>
   <text x="20" y="51" class="sub">nach Codeumfang in 23 Projekten</text>
   <g clip-path="url(#bar)">
-    <rect x="20" y="70" width="133.35" height="8" fill="#2a78d6"><title>C++: 38,1 %</title></rect>
-    <rect x="155.35" y="70" width="105.7" height="8" fill="#eb6834"><title>Java: 30,2 %</title></rect>
-    <rect x="263.05" y="70" width="73.15" height="8" fill="#6250d6"><title>PHP: 20,9 %</title></rect>
-    <rect x="338.2" y="70" width="9.8" height="8" fill="#008300"><title>Python: 2,8 %</title></rect>
-    <rect x="350" y="70" width="8.75" height="8" fill="#e87ba4"><title>PowerShell: 2,5 %</title></rect>
-    <rect x="360.75" y="70" width="19.25" height="8" fill="#8c959f"><title>Sonstige: 5,5 %</title></rect>
+    <rect x="20" y="70" width="132.65" height="8" fill="#2a78d6"><title>C++: 37,9 %</title></rect>
+    <rect x="154.65" y="70" width="106.4" height="8" fill="#eb6834"><title>Java: 30,4 %</title></rect>
+    <rect x="263.05" y="70" width="73.5" height="8" fill="#6250d6"><title>PHP: 21,0 %</title></rect>
+    <rect x="338.55" y="70" width="9.8" height="8" fill="#008300"><title>Python: 2,8 %</title></rect>
+    <rect x="350.35" y="70" width="8.75" height="8" fill="#e87ba4"><title>PowerShell: 2,5 %</title></rect>
+    <rect x="361.1" y="70" width="18.9" height="8" fill="#8c959f"><title>Sonstige: 5,4 %</title></rect>
   </g>
   <circle cx="25" cy="109.5" r="5" fill="#2a78d6"/>
   <text x="38" y="114" class="name">C++</text>
-  <text x="190" y="114" class="share" text-anchor="end">38,1 %</text>
+  <text x="190" y="114" class="share" text-anchor="end">37,9 %</text>
   <circle cx="215" cy="109.5" r="5" fill="#eb6834"/>
   <text x="228" y="114" class="name">Java</text>
-  <text x="380" y="114" class="share" text-anchor="end">30,2 %</text>
+  <text x="380" y="114" class="share" text-anchor="end">30,4 %</text>
   <circle cx="25" cy="141.5" r="5" fill="#6250d6"/>
   <text x="38" y="146" class="name">PHP</text>
-  <text x="190" y="146" class="share" text-anchor="end">20,9 %</text>
+  <text x="190" y="146" class="share" text-anchor="end">21,0 %</text>
   <circle cx="215" cy="141.5" r="5" fill="#008300"/>
   <text x="228" y="146" class="name">Python</text>
   <text x="380" y="146" class="share" text-anchor="end">2,8 %</text>
@@ -39,5 +39,5 @@
   <text x="190" y="178" class="share" text-anchor="end">2,5 %</text>
   <circle cx="215" cy="173.5" r="5" fill="#8c959f"/>
   <text x="228" y="178" class="name">Sonstige</text>
-  <text x="380" y="178" class="share" text-anchor="end">5,5 %</text>
+  <text x="380" y="178" class="share" text-anchor="end">5,4 %</text>
 </svg>
