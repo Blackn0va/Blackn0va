@@ -12,7 +12,7 @@
   </style>
   <rect x="0.5" y="0.5" width="399" height="239" rx="10" fill="#f6f8fa" stroke="#d1d9e0"/>
   <text x="20" y="32" class="h">GitHub in Zahlen</text>
-  <text x="20" y="51" class="sub">öffentliche und private Repositories · Stand 18.11.2026</text>
+  <text x="20" y="51" class="sub">öffentliche und private Repositories · Stand 19.11.2026</text>
 
   <text x="18" y="112" class="hero">2.158</text>
   <text x="20" y="134" class="lab">Commits gesamt</text>

@@ -18,7 +18,7 @@
 <div align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/stats-dark.svg">
-  <img src="assets/stats-light.svg" width="400" alt="GitHub in Zahlen, Stand 18.11.2026: 2.158 Commits, davon 1.643 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.">
+  <img src="assets/stats-light.svg" width="400" alt="GitHub in Zahlen, Stand 19.11.2026: 2.158 Commits, davon 1.643 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/languages-dark.svg">
@@ -27,7 +27,7 @@
 <br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg">
-  <img src="assets/contributions-light.svg" width="804" alt="Beiträge seit 2015, Stand 18.11.2026: 2.446 an 390 aktiven Tagen; längste Serie 21 Tage, aktuelle Serie 7 Tage. Das Raster zeigt die letzten 12 Monate.">
+  <img src="assets/contributions-light.svg" width="804" alt="Beiträge seit 2015, Stand 19.11.2026: 2.446 an 390 aktiven Tagen; längste Serie 21 Tage, aktuelle Serie 0 Tage. Das Raster zeigt die letzten 12 Monate.">
 </picture>
 </div>
 <!-- stats:end -->

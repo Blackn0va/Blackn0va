@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="804" height="286" viewBox="0 0 804 286" role="img" aria-labelledby="t d">
   <title id="t">Beiträge</title>
-  <desc id="d">Beiträge seit 2015: 2.446 an 390 aktiven Tagen; längste Serie 21 Tage, aktuelle Serie 7 Tage. Das Raster zeigt die letzten 12 Monate.</desc>
+  <desc id="d">Beiträge seit 2015: 2.446 an 390 aktiven Tagen; längste Serie 21 Tage, aktuelle Serie 0 Tage. Das Raster zeigt die letzten 12 Monate.</desc>
   <style>
     text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
     .h { font-size: 15px; font-weight: 600; fill: #f0f6fc; }
@@ -12,7 +12,7 @@
   </style>
   <rect x="0.5" y="0.5" width="803" height="285" rx="10" fill="#161b22" stroke="#30363d"/>
   <text x="20" y="32" class="h">Beiträge</text>
-  <text x="20" y="51" class="sub">gesamt seit 2015 · öffentliche und private Repositories · Stand 18.11.2026</text>
+  <text x="20" y="51" class="sub">gesamt seit 2015 · öffentliche und private Repositories · Stand 19.11.2026</text>
 
   <text x="20" y="92" class="val">2.446</text>
   <text x="20" y="111" class="lab">Beiträge</text>
@@ -20,7 +20,7 @@
   <text x="210" y="111" class="lab">aktive Tage</text>
   <text x="400" y="92" class="val">21<tspan class="unit"> Tage</tspan></text>
   <text x="400" y="111" class="lab">längste Serie</text>
-  <text x="590" y="92" class="val">7<tspan class="unit"> Tage</tspan></text>
+  <text x="590" y="92" class="val">0<tspan class="unit"> Tage</tspan></text>
   <text x="590" y="111" class="lab">aktuelle Serie</text>
 
   <text x="75.5" y="142" class="axis">Dez</text>
@@ -39,7 +39,6 @@
   <text x="20" y="186.75" class="axis">Mi</text>
   <text x="20" y="214.25" class="axis">Fr</text>
   <g>
-    <rect x="48" y="177.5" width="10.75" height="10.75" rx="2" fill="#5a3cb0"><title>19.11.2025: 1 Beitrag</title></rect>
     <rect x="48" y="191.25" width="10.75" height="10.75" rx="2" fill="#7653db"><title>20.11.2025: 3 Beiträge</title></rect>
     <rect x="48" y="205" width="10.75" height="10.75" rx="2" fill="#7653db"><title>21.11.2025: 3 Beiträge</title></rect>
     <rect x="48" y="218.75" width="10.75" height="10.75" rx="2" fill="#7653db"><title>22.11.2025: 3 Beiträge</title></rect>
@@ -404,6 +403,7 @@
     <rect x="763" y="150" width="10.75" height="10.75" rx="2" fill="#9a7cf5"><title>16.11.2026: 7 Beiträge</title></rect>
     <rect x="763" y="163.75" width="10.75" height="10.75" rx="2" fill="#7653db"><title>17.11.2026: 3 Beiträge</title></rect>
     <rect x="763" y="177.5" width="10.75" height="10.75" rx="2" fill="#21262d"><title>18.11.2026: 0 Beiträge</title></rect>
+    <rect x="763" y="191.25" width="10.75" height="10.75" rx="2" fill="#21262d"><title>19.11.2026: 0 Beiträge</title></rect>
   </g>
   <rect x="692" y="255.25" width="10" height="10" rx="2" fill="#21262d"/>
   <rect x="705" y="255.25" width="10" height="10" rx="2" fill="#5a3cb0"/>

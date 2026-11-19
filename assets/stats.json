@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "projects": 23,
   "projectsPublic": 10,
   "projectsPrivate": 13,
@@ -51,7 +51,7 @@
     "total": 2446,
     "activeDays": 390,
     "longestStreak": 21,
-    "currentStreak": 7,
+    "currentStreak": 0,
     "since": 2015
   }
 }
