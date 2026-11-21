@@ -18,16 +18,16 @@
 <div align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/stats-dark.svg">
-  <img src="assets/stats-light.svg" width="400" alt="GitHub in Zahlen, Stand 20.11.2026: 2.168 Commits, davon 1.653 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.">
+  <img src="assets/stats-light.svg" width="400" alt="GitHub in Zahlen, Stand 21.11.2026: 2.183 Commits, davon 1.668 im Jahr 2026; 23 Projekte, davon 13 privat; auf GitHub seit 2015.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/languages-dark.svg">
-  <img src="assets/languages-light.svg" width="400" alt="Sprachen nach Codeumfang: C++ 37,3 %, Java 30,6 %, PHP 21,5 %, Python 2,8 %, PowerShell 2,4 %, Sonstige 5,4 %.">
+  <img src="assets/languages-light.svg" width="400" alt="Sprachen nach Codeumfang: C++ 37,2 %, Java 30,7 %, PHP 21,5 %, Python 2,8 %, PowerShell 2,4 %, Sonstige 5,4 %.">
 </picture>
 <br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg">
-  <img src="assets/contributions-light.svg" width="804" alt="Beiträge seit 2015, Stand 20.11.2026: 2.456 an 392 aktiven Tagen; längste Serie 21 Tage, aktuelle Serie 2 Tage. Das Raster zeigt die letzten 12 Monate.">
+  <img src="assets/contributions-light.svg" width="804" alt="Beiträge seit 2015, Stand 21.11.2026: 2.471 an 393 aktiven Tagen; längste Serie 21 Tage, aktuelle Serie 3 Tage. Das Raster zeigt die letzten 12 Monate.">
 </picture>
 </div>
 <!-- stats:end -->

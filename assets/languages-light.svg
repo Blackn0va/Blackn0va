@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240" role="img" aria-labelledby="t d">
   <title id="t">Sprachen</title>
-  <desc id="d">Sprachen nach Codeumfang: C++ 37,3 %, Java 30,6 %, PHP 21,5 %, Python 2,8 %, PowerShell 2,4 %, Sonstige 5,4 %.</desc>
+  <desc id="d">Sprachen nach Codeumfang: C++ 37,2 %, Java 30,7 %, PHP 21,5 %, Python 2,8 %, PowerShell 2,4 %, Sonstige 5,4 %.</desc>
   <style>
     text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
     .h { font-size: 15px; font-weight: 600; fill: #1f2328; }
@@ -15,8 +15,8 @@
   <text x="20" y="32" class="h">Sprachen</text>
   <text x="20" y="51" class="sub">nach Codeumfang in 23 Projekten</text>
   <g clip-path="url(#bar)">
-    <rect x="20" y="70" width="130.55" height="8" fill="#2a78d6"><title>C++: 37,3 %</title></rect>
-    <rect x="152.55" y="70" width="107.1" height="8" fill="#eb6834"><title>Java: 30,6 %</title></rect>
+    <rect x="20" y="70" width="130.2" height="8" fill="#2a78d6"><title>C++: 37,2 %</title></rect>
+    <rect x="152.2" y="70" width="107.45" height="8" fill="#eb6834"><title>Java: 30,7 %</title></rect>
     <rect x="261.65" y="70" width="75.25" height="8" fill="#6250d6"><title>PHP: 21,5 %</title></rect>
     <rect x="338.9" y="70" width="9.8" height="8" fill="#008300"><title>Python: 2,8 %</title></rect>
     <rect x="350.7" y="70" width="8.4" height="8" fill="#e87ba4"><title>PowerShell: 2,4 %</title></rect>
@@ -24,10 +24,10 @@
   </g>
   <circle cx="25" cy="109.5" r="5" fill="#2a78d6"/>
   <text x="38" y="114" class="name">C++</text>
-  <text x="190" y="114" class="share" text-anchor="end">37,3 %</text>
+  <text x="190" y="114" class="share" text-anchor="end">37,2 %</text>
   <circle cx="215" cy="109.5" r="5" fill="#eb6834"/>
   <text x="228" y="114" class="name">Java</text>
-  <text x="380" y="114" class="share" text-anchor="end">30,6 %</text>
+  <text x="380" y="114" class="share" text-anchor="end">30,7 %</text>
   <circle cx="25" cy="141.5" r="5" fill="#6250d6"/>
   <text x="38" y="146" class="name">PHP</text>
   <text x="190" y="146" class="share" text-anchor="end">21,5 %</text>
