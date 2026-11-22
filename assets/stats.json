@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-21",
-  "projects": 23,
+  "updated": "2026-11-22",
+  "projects": 20,
   "projectsPublic": 10,
-  "projectsPrivate": 13,
-  "commits": 2183,
+  "projectsPrivate": 10,
+  "commits": 2242,
   "commitsByYear": {
     "2019": 34,
     "2020": 1,
@@ -12,46 +12,46 @@
     "2023": 108,
     "2024": 169,
     "2025": 196,
-    "2026": 1668
+    "2026": 1727
   },
   "memberSince": 2015,
   "languages": [
     {
       "name": "C++",
       "slot": 1,
-      "share": 37.2
-    },
-    {
-      "name": "Java",
-      "slot": 0,
-      "share": 30.7
+      "share": 41.4
     },
     {
       "name": "PHP",
       "slot": 2,
-      "share": 21.5
+      "share": 27.9
     },
     {
-      "name": "Python",
-      "slot": 5,
-      "share": 2.8
+      "name": "Java",
+      "slot": 0,
+      "share": 19.8
     },
     {
       "name": "PowerShell",
       "slot": 6,
-      "share": 2.4
+      "share": 2.6
+    },
+    {
+      "name": "Python",
+      "slot": 5,
+      "share": 1.8
     },
     {
       "name": "Sonstige",
       "slot": null,
-      "share": 5.4
+      "share": 6.5
     }
   ],
   "contributions": {
-    "total": 2471,
-    "activeDays": 393,
+    "total": 2282,
+    "activeDays": 387,
     "longestStreak": 21,
-    "currentStreak": 3,
+    "currentStreak": 4,
     "since": 2015
   }
 }
