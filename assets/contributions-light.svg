@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="804" height="286" viewBox="0 0 804 286" role="img" aria-labelledby="t d">
   <title id="t">Beiträge</title>
-  <desc id="d">Beiträge seit 2015: 2.340 an 388 aktiven Tagen; längste Serie 21 Tage, aktuelle Serie 5 Tage. Das Raster zeigt die letzten 12 Monate.</desc>
+  <desc id="d">Beiträge seit 2015: 2.347 an 388 aktiven Tagen; längste Serie 21 Tage, aktuelle Serie 5 Tage. Das Raster zeigt die letzten 12 Monate.</desc>
   <style>
     text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
     .h { font-size: 15px; font-weight: 600; fill: #1f2328; }
@@ -12,9 +12,9 @@
   </style>
   <rect x="0.5" y="0.5" width="803" height="285" rx="10" fill="#f6f8fa" stroke="#d1d9e0"/>
   <text x="20" y="32" class="h">Beiträge</text>
-  <text x="20" y="51" class="sub">gesamt seit 2015 · öffentliche und private Repositories · Stand 23.11.2026</text>
+  <text x="20" y="51" class="sub">gesamt seit 2015 · öffentliche und private Repositories · Stand 24.11.2026</text>
 
-  <text x="20" y="92" class="val">2.340</text>
+  <text x="20" y="92" class="val">2.347</text>
   <text x="20" y="111" class="lab">Beiträge</text>
   <text x="210" y="92" class="val">388</text>
   <text x="210" y="111" class="lab">aktive Tage</text>
@@ -39,7 +39,6 @@
   <text x="20" y="186.75" class="axis">Mi</text>
   <text x="20" y="214.25" class="axis">Fr</text>
   <g>
-    <rect x="48" y="150" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>24.11.2025: 3 Beiträge</title></rect>
     <rect x="48" y="163.75" width="10.75" height="10.75" rx="2" fill="#b9a2f5"><title>25.11.2025: 1 Beitrag</title></rect>
     <rect x="48" y="177.5" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>26.11.2025: 4 Beiträge</title></rect>
     <rect x="48" y="191.25" width="10.75" height="10.75" rx="2" fill="#b9a2f5"><title>27.11.2025: 1 Beitrag</title></rect>
@@ -49,7 +48,7 @@
     <rect x="61.75" y="150" width="10.75" height="10.75" rx="2" fill="#e6eaef"><title>01.12.2025: 0 Beiträge</title></rect>
     <rect x="61.75" y="163.75" width="10.75" height="10.75" rx="2" fill="#e6eaef"><title>02.12.2025: 0 Beiträge</title></rect>
     <rect x="61.75" y="177.5" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>03.12.2025: 4 Beiträge</title></rect>
-    <rect x="61.75" y="191.25" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>04.12.2025: 10 Beiträge</title></rect>
+    <rect x="61.75" y="191.25" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>04.12.2025: 10 Beiträge</title></rect>
     <rect x="61.75" y="205" width="10.75" height="10.75" rx="2" fill="#b9a2f5"><title>05.12.2025: 1 Beitrag</title></rect>
     <rect x="61.75" y="218.75" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>06.12.2025: 4 Beiträge</title></rect>
     <rect x="61.75" y="232.5" width="10.75" height="10.75" rx="2" fill="#b9a2f5"><title>07.12.2025: 2 Beiträge</title></rect>
@@ -209,7 +208,7 @@
     <rect x="364.25" y="232.5" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>10.05.2026: 21 Beiträge</title></rect>
     <rect x="378" y="150" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>11.05.2026: 5 Beiträge</title></rect>
     <rect x="378" y="163.75" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>12.05.2026: 3 Beiträge</title></rect>
-    <rect x="378" y="177.5" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>13.05.2026: 10 Beiträge</title></rect>
+    <rect x="378" y="177.5" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>13.05.2026: 10 Beiträge</title></rect>
     <rect x="378" y="191.25" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>14.05.2026: 5 Beiträge</title></rect>
     <rect x="378" y="205" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>15.05.2026: 4 Beiträge</title></rect>
     <rect x="378" y="218.75" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>16.05.2026: 19 Beiträge</title></rect>
@@ -219,7 +218,7 @@
     <rect x="391.75" y="177.5" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>20.05.2026: 21 Beiträge</title></rect>
     <rect x="391.75" y="191.25" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>21.05.2026: 4 Beiträge</title></rect>
     <rect x="391.75" y="205" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>22.05.2026: 11 Beiträge</title></rect>
-    <rect x="391.75" y="218.75" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>23.05.2026: 10 Beiträge</title></rect>
+    <rect x="391.75" y="218.75" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>23.05.2026: 10 Beiträge</title></rect>
     <rect x="391.75" y="232.5" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>24.05.2026: 18 Beiträge</title></rect>
     <rect x="405.5" y="150" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>25.05.2026: 11 Beiträge</title></rect>
     <rect x="405.5" y="163.75" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>26.05.2026: 8 Beiträge</title></rect>
@@ -269,7 +268,7 @@
     <rect x="488" y="191.25" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>09.07.2026: 4 Beiträge</title></rect>
     <rect x="488" y="205" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>10.07.2026: 3 Beiträge</title></rect>
     <rect x="488" y="218.75" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>11.07.2026: 8 Beiträge</title></rect>
-    <rect x="488" y="232.5" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>12.07.2026: 10 Beiträge</title></rect>
+    <rect x="488" y="232.5" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>12.07.2026: 10 Beiträge</title></rect>
     <rect x="501.75" y="150" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>13.07.2026: 6 Beiträge</title></rect>
     <rect x="501.75" y="163.75" width="10.75" height="10.75" rx="2" fill="#b9a2f5"><title>14.07.2026: 2 Beiträge</title></rect>
     <rect x="501.75" y="177.5" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>15.07.2026: 6 Beiträge</title></rect>
@@ -285,7 +284,7 @@
     <rect x="515.5" y="218.75" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>25.07.2026: 12 Beiträge</title></rect>
     <rect x="515.5" y="232.5" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>26.07.2026: 3 Beiträge</title></rect>
     <rect x="529.25" y="150" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>27.07.2026: 7 Beiträge</title></rect>
-    <rect x="529.25" y="163.75" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>28.07.2026: 10 Beiträge</title></rect>
+    <rect x="529.25" y="163.75" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>28.07.2026: 10 Beiträge</title></rect>
     <rect x="529.25" y="177.5" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>29.07.2026: 4 Beiträge</title></rect>
     <rect x="529.25" y="191.25" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>30.07.2026: 5 Beiträge</title></rect>
     <rect x="529.25" y="205" width="10.75" height="10.75" rx="2" fill="#b9a2f5"><title>31.07.2026: 1 Beitrag</title></rect>
@@ -362,7 +361,7 @@
     <rect x="666.75" y="218.75" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>10.10.2026: 15 Beiträge</title></rect>
     <rect x="666.75" y="232.5" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>11.10.2026: 22 Beiträge</title></rect>
     <rect x="680.5" y="150" width="10.75" height="10.75" rx="2" fill="#b9a2f5"><title>12.10.2026: 2 Beiträge</title></rect>
-    <rect x="680.5" y="163.75" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>13.10.2026: 10 Beiträge</title></rect>
+    <rect x="680.5" y="163.75" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>13.10.2026: 10 Beiträge</title></rect>
     <rect x="680.5" y="177.5" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>14.10.2026: 28 Beiträge</title></rect>
     <rect x="680.5" y="191.25" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>15.10.2026: 3 Beiträge</title></rect>
     <rect x="680.5" y="205" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>16.10.2026: 26 Beiträge</title></rect>
@@ -403,7 +402,8 @@
     <rect x="749.25" y="205" width="10.75" height="10.75" rx="2" fill="#6d43d9"><title>20.11.2026: 6 Beiträge</title></rect>
     <rect x="749.25" y="218.75" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>21.11.2026: 71 Beiträge</title></rect>
     <rect x="749.25" y="232.5" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>22.11.2026: 61 Beiträge</title></rect>
-    <rect x="763" y="150" width="10.75" height="10.75" rx="2" fill="#9171ee"><title>23.11.2026: 4 Beiträge</title></rect>
+    <rect x="763" y="150" width="10.75" height="10.75" rx="2" fill="#4c22a8"><title>23.11.2026: 11 Beiträge</title></rect>
+    <rect x="763" y="163.75" width="10.75" height="10.75" rx="2" fill="#e6eaef"><title>24.11.2026: 0 Beiträge</title></rect>
   </g>
   <rect x="692" y="255.25" width="10" height="10" rx="2" fill="#e6eaef"/>
   <rect x="705" y="255.25" width="10" height="10" rx="2" fill="#b9a2f5"/>
